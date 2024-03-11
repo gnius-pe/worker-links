@@ -1,10 +1,12 @@
 import  express  from "express";
 import morgan from "morgan";
 import axios from "axios";
-
+import path from "path";
+import { fileURLToPath } from 'url';
 
 const app = express();
 const port = 3000;
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const urls = [
     "https://comee.page.link/youtube",
@@ -21,7 +23,7 @@ function makeRequest(url) {
 
 function makeRequests(){
     urls.forEach(url => {
-        const vicitas = Math.floor(Math.random() * 5);
+        const vicitas = Math.floor(Math.random() * 600);
         for(let i = 0 ; i < vicitas ; i++ ){
             makeRequest(url);
         }
@@ -55,13 +57,14 @@ function ejecutarTareaEnMomentoEspecifico(hora, minuto, segundo, tarea) {
 
 
 app.use(morgan('dev'));
+app.use(express.static(path.join(__dirname, 'public')));
 app.get('/',(req,res)=>{
-        res.send('Worker');
+        
+        res.sendFile(path.join(__dirname,'public','index.html'));
     }
 )
 
 app.listen(port,()=>{
-    
     console.log('En ejecucion por el ',port)
 })
-ejecutarTareaEnMomentoEspecifico(18,2,38,makeRequests);
+ejecutarTareaEnMomentoEspecifico(19,2,38,makeRequests);
