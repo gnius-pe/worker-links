@@ -5,7 +5,7 @@
   "main": "app.js",
   "type": "module",
   "scripts": {
-    "dev": "nodemon index.js",
+    "dev": "nodemon app.js",
     "test": "test"
   },
   "keywords": [],
